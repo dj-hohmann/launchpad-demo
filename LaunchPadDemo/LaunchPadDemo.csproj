@@ -49,6 +49,7 @@
     <Compile Include="BaseLaunchpadPlugin.cs" />
     <Compile Include="BlankPlugin.cs" />
     <Compile Include="ILaunchpadPlugin.cs" />
+    <Compile Include="JenkinsPlugin.cs" />
     <Compile Include="Launchpad.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
