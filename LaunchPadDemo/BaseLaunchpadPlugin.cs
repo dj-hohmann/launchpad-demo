@@ -7,9 +7,15 @@ namespace LaunchPadDemo
 {
     public abstract class BaseLaunchpadPlugin: ILaunchpadPlugin
     {
-        private String name;
-        private String status;
-        private int count;
+        protected String name;
+        protected LaunchPadStatus status = LaunchPadStatus.OK;
+        protected int count = 1;
+        protected bool monitor;
+
+        public void SetPollCounter(int seconds)
+        {
+            this.count = seconds;
+        }
 
         public string Name
         {
@@ -23,38 +29,27 @@ namespace LaunchPadDemo
             }
         }
 
-        public int Count
-        {
-            get
-            {
-                return this.count;
-            }
-            set
-            {
-                this.count = value;
-            }
-        }
+        public abstract void Action();
 
-        public void Monitor()
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Action()
-        {
-            throw new NotImplementedException();
-        }
-
+        public abstract void Poll();
 
         LaunchPadStatus ILaunchpadPlugin.Status
         {
             get
             {
-                throw new NotImplementedException();
+                return this.status;
+            }
+        }
+
+        public bool Monitor
+        {
+            get
+            {
+                return this.monitor;
             }
             set
             {
-                throw new NotImplementedException();
+                this.monitor = value;
             }
         }
     }

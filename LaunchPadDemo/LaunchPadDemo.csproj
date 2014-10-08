@@ -47,6 +47,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BaseLaunchpadPlugin.cs" />
+    <Compile Include="BlankPlugin.cs" />
     <Compile Include="ILaunchpadPlugin.cs" />
     <Compile Include="Launchpad.cs" />
     <Compile Include="Program.cs" />

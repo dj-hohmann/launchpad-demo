@@ -9,29 +9,58 @@ namespace LaunchPadDemo
 {
     public class Launchpad
     {
-        int[,] grid = new int[7, 7];
+        ILaunchpadPlugin[,] grid = new ILaunchpadPlugin[8, 8];
+
+        bool demo = false;
 
         Midi.InputDevice inputDevice;
         Midi.OutputDevice outputDevice;
         Midi.Clock clock;
 
-        const int amber = 127;
-        const int green = 100;
-        const int red = 2;
+        Pitch lastPitch = Pitch.A0;
+        DateTime lastPressed = DateTime.Now;
 
         public Launchpad(InputDevice inputDevice, OutputDevice outputDevice, Clock clock)
         {
             this.inputDevice = inputDevice;
             this.outputDevice = outputDevice;
             this.clock = clock;
+            if (this.inputDevice.IsOpen) { this.inputDevice.Close(); }
+            if (this.outputDevice.IsOpen) { this.outputDevice.Close(); }
 
             this.inputDevice.Open();
             this.inputDevice.NoteOn += new InputDevice.NoteOnHandler(NoteOn);
-            this.inputDevice.NoteOff += new InputDevice.NoteOffHandler(NoteOff);
             this.inputDevice.StartReceiving(null);
 
             this.outputDevice.Open();
             this.ShowColours();
+        }
+
+        public void Update()
+        {
+            for (int x = 0; x < 8; x++)
+            {
+                for (int y = 0; y < 8; y++)
+                {
+                    if (this.grid[x, y] == null)
+                    {
+                        this.outputDevice.SendNoteOn(Channel.Channel1, XYToPitch(x,y),(int)LaunchPadColour.BLANK);
+                    }
+                    else
+                    {
+                        this.grid[x,y].Poll();
+                        switch(this.grid[x,y].Status)
+                        {
+                            case LaunchPadStatus.OK: this.outputDevice.SendNoteOn(Channel.Channel1, XYToPitch(x,y),(int)LaunchPadColour.GREEN);
+                                                        break;
+                            case LaunchPadStatus.ALERT: this.outputDevice.SendNoteOn(Channel.Channel1, XYToPitch(x,y),(int)LaunchPadColour.RED);
+                                                        break;
+                            default: this.outputDevice.SendNoteOn(Channel.Channel1, XYToPitch(x,y),(int)LaunchPadColour.BLANK);
+                                            break;
+                        }
+                    }
+                }
+            }
         }
 
         private void ShowColours()
@@ -59,36 +88,48 @@ namespace LaunchPadDemo
 
         public void NoteOn(NoteOnMessage msg)
         {
-            PitchToXY(msg.Pitch);
-            this.outputDevice.SendNoteOn(Channel.Channel1, msg.Pitch, amber);
+            if (msg.Pitch != lastPitch || lastPressed.AddMilliseconds(500) < DateTime.Now) // Prevent double tap
+            {
+                lastPressed = DateTime.Now;
+                lastPitch = msg.Pitch;
+
+                if ((int)msg.Pitch == 8)
+                {
+                    DemoSetup();
+                }
+                else
+                {
+                    GridPosition pos = PitchToXY(msg.Pitch);
+                    Send(pos.x, pos.y);
+                }
+            }
+            //this.outputDevice.SendNoteOn(Channel.Channel1, msg.Pitch, (int)LaunchPadColour.RED);
         }
 
-        public void NoteOff(NoteOffMessage msg)
+        private void Send(int x, int y)
         {
-            this.outputDevice.SendNoteOn(Channel.Channel1, msg.Pitch, red);
-            Console.WriteLine("Note Off " + msg.Pitch);
+            if (this.grid[x, y] != null)
+            {
+                this.grid[x, y].Action();
+            }
         }
 
-        public void Send(int x, int y, int colour, int velocity)
+        private GridPosition PitchToXY(Pitch pitch)
         {
-
-        }
-
-        private void PitchToXY(Pitch pitch)
-        {
+            GridPosition pos = new GridPosition();
             int p = (int)pitch;
-            int x, y;
-
+            
             if (p > 8)
             {
-                x = p % 16;
-                y = p / 16;
+                pos.x = p % 16;
+                pos.y = p / 16;
             }
             else
             {
-                x = p;
-                y = 0;
+                pos.x = p;
+                pos.y = 0;
             }
+            return pos;
         }
 
         private Pitch XYToPitch(int X, int Y)
@@ -98,6 +139,22 @@ namespace LaunchPadDemo
 
             z = (Y * 16) + X;
             return (Pitch)z;
+        }
+
+        private void DemoSetup()
+        {
+            if (demo == false)
+            {
+                demo = true;
+                this.grid = new ILaunchpadPlugin[8, 8];
+                this.grid[2, 2] = new TestPlugin();
+                this.grid[5, 2] = new BlankPlugin() { Name = "Fe"};
+                this.grid[3, 4] = new BlankPlugin() { Name = "Fi" };
+                this.grid[4, 4] = new BlankPlugin() { Name = "Fo" };
+                this.grid[2, 5] = new BlankPlugin() { Name = "Fum" };
+                this.grid[5, 5] = new BlankPlugin() { Name = "Cake" };
+                Console.WriteLine("Demo Mode Active...");
+            }
         }
     }
 }

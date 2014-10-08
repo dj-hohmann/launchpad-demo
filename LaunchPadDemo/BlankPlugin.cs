@@ -5,21 +5,17 @@ using System.Text;
 
 namespace LaunchPadDemo
 {
-    public class TestPlugin : BaseLaunchpadPlugin
+    public class BlankPlugin : BaseLaunchpadPlugin
     {
         private DateTime dt = DateTime.Now;
 
         public override void Action()
         {
-            System.Diagnostics.Process.Start("chrome.exe");
+            Console.WriteLine(this.Name);
         }
 
         public override void Poll()
         {
-            if (dt.AddSeconds(5) < DateTime.Now)
-            {
-                this.status = LaunchPadStatus.ALERT;
-            }
         }
     }
 }

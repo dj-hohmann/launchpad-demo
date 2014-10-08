@@ -5,6 +5,20 @@ using System.Text;
 
 namespace LaunchPadDemo
 {
+    public struct GridPosition
+    {
+        public int x;
+        public int y;
+    }
+
+    public enum LaunchPadColour
+    {
+        BLANK = 0,
+        RED = 2,
+        GREEN = 100,
+        AMBER = 127
+    }
+
     public enum LaunchPadStatus
     {
         OK,
@@ -14,9 +28,9 @@ namespace LaunchPadDemo
     public interface ILaunchpadPlugin
     {
         string Name { get; set; }
-        LaunchPadStatus Status { get; set; }
-        int Count { get; set; }
-        void Monitor();
+        LaunchPadStatus Status { get; }
+        bool Monitor { get; set; }
         void Action();
+        void Poll();
     }
 }
