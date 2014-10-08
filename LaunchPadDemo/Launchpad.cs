@@ -147,12 +147,42 @@ namespace LaunchPadDemo
             {
                 demo = true;
                 this.grid = new ILaunchpadPlugin[8, 8];
+                this.grid[0, 0] = new BlankPlugin() { Name = "" };
+                this.grid[1, 0] = new BlankPlugin() { Name = "" };
+                this.grid[2, 0] = new BlankPlugin() { Name = "" };
+                this.grid[3, 0] = new BlankPlugin() { Name = "" };
+                this.grid[4, 0] = new BlankPlugin() { Name = "" };
+                this.grid[5, 0] = new BlankPlugin() { Name = "" };
+                this.grid[6, 0] = new TwitterPlugin();
+                this.grid[7, 0] = new BlankPlugin() { Name = "" };
+
+                this.grid[0, 1] = new BlankPlugin() { Name = "" };
+                this.grid[1, 1] = new BlankPlugin() { Name = "" };
+                this.grid[2, 1] = new BlankPlugin() { Name = "" };
+                this.grid[3, 1] = new BlankPlugin() { Name = "" };
+                this.grid[4, 1] = new BlankPlugin() { Name = "" };
+                this.grid[5, 1] = new BlankPlugin() { Name = "" };
+                this.grid[6, 1] = new BlankPlugin() { Name = "" };
+                this.grid[7, 1] = new BlankPlugin() { Name = "" };
+
+                this.grid[0, 2] = new BlankPlugin() { Name = "" };
+                this.grid[1, 2] = new BlankPlugin() { Name = "" };
                 this.grid[2, 2] = new TestPlugin();
-                this.grid[5, 2] = new BlankPlugin() { Name = "Fe"};
-                this.grid[3, 4] = new BlankPlugin() { Name = "Fi" };
-                this.grid[4, 4] = new BlankPlugin() { Name = "Fo" };
-                this.grid[2, 5] = new BlankPlugin() { Name = "Fum" };
-                this.grid[5, 5] = new BlankPlugin() { Name = "Cake" };
+                this.grid[3, 2] = new BlankPlugin() { Name = "" };
+                this.grid[4, 2] = new BlankPlugin() { Name = "" };
+                this.grid[5, 2] = new BlankPlugin() { Name = "" };
+                this.grid[6, 2] = new BlankPlugin() { Name = "" };
+                this.grid[7, 2] = new BlankPlugin() { Name = "" };
+
+                this.grid[0, 3] = new BlankPlugin() { Name = "" };
+                this.grid[1, 3] = new BlankPlugin() { Name = "" };
+                this.grid[2, 3] = new BlankPlugin() { Name = "" };
+                this.grid[3, 3] = new BlankPlugin() { Name = "" };
+                this.grid[4, 3] = new BlankPlugin() { Name = "" };
+                this.grid[5, 3] = new BlankPlugin() { Name = "" };
+                this.grid[6, 3] = new BlankPlugin() { Name = "" };
+                this.grid[7, 3] = new BlankPlugin() { Name = "" };
+
                 Console.WriteLine("Demo Mode Active...");
             }
         }
