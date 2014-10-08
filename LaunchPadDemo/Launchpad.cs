@@ -34,6 +34,7 @@ namespace LaunchPadDemo
 
             this.outputDevice.Open();
             this.ShowColours();
+            DemoSetup();
         }
 
         public void Update()
@@ -93,6 +94,7 @@ namespace LaunchPadDemo
                 lastPressed = DateTime.Now;
                 lastPitch = msg.Pitch;
 
+                
                 if ((int)msg.Pitch == 8)
                 {
                     DemoSetup();
@@ -147,41 +149,24 @@ namespace LaunchPadDemo
             {
                 demo = true;
                 this.grid = new ILaunchpadPlugin[8, 8];
-                this.grid[0, 0] = new BlankPlugin() { Name = "" };
-                this.grid[1, 0] = new BlankPlugin() { Name = "" };
-                this.grid[2, 0] = new BlankPlugin() { Name = "" };
-                this.grid[3, 0] = new BlankPlugin() { Name = "" };
-                this.grid[4, 0] = new BlankPlugin() { Name = "" };
-                this.grid[5, 0] = new BlankPlugin() { Name = "" };
-                this.grid[6, 0] = new TwitterPlugin();
-                this.grid[7, 0] = new BlankPlugin() { Name = "" };
+                this.grid[0, 0] = new JenkinsPlugin() { Job = "aggregation-integration-builder", Build = "lastBuild", FailDelay = 20};
+                this.grid[1, 0] = new JenkinsPlugin() { Job = "aggregation-pr-builder"};
+                this.grid[2, 0] = new JenkinsPlugin() { Job = "aggregation-quality-builder", Build = "lastFailedBuild", FailDelay = 8 };
+                this.grid[3, 0] = new JenkinsPlugin() { Job = "aggregation-release-build-rc", Build = "lastBuild" };
+                this.grid[4, 0] = new JenkinsPlugin() { Job = "aggregation-release-build-release-artifacts", Build = "lastBuild" };
+                this.grid[5, 0] = new JenkinsPlugin() { Job = "aggregation-release-deploy", Build = "lastBuild"};
+                this.grid[6, 0] = new JenkinsPlugin() { Job = "aggregation-release-deploy-rc", Build = "lastBuild" };
+                this.grid[7, 0] = new JenkinsPlugin() { Job = "aggregation_acceptance_tests_runner", Build = "lastBuild" };
 
-                this.grid[0, 1] = new BlankPlugin() { Name = "" };
-                this.grid[1, 1] = new BlankPlugin() { Name = "" };
-                this.grid[2, 1] = new BlankPlugin() { Name = "" };
-                this.grid[3, 1] = new BlankPlugin() { Name = "" };
-                this.grid[4, 1] = new BlankPlugin() { Name = "" };
-                this.grid[5, 1] = new BlankPlugin() { Name = "" };
-                this.grid[6, 1] = new BlankPlugin() { Name = "" };
-                this.grid[7, 1] = new BlankPlugin() { Name = "" };
+                this.grid[0, 1] = new JenkinsPlugin() { Job = "backoffice-integration-builder", Build = "lastBuild" };
+                this.grid[1, 1] = new JenkinsPlugin() { Job = "backoffice-pr-builder", Build = "lastBuild" };
+                this.grid[2, 1] = new JenkinsPlugin() { Job = "backoffice-quality-builder", Build = "lastBuild" };
+                this.grid[3, 1] = new JenkinsPlugin() { Job = "backoffice-release-build-hotfix", Build = "lastBuild" };
 
-                this.grid[0, 2] = new BlankPlugin() { Name = "" };
-                this.grid[1, 2] = new BlankPlugin() { Name = "" };
-                this.grid[2, 2] = new TestPlugin();
-                this.grid[3, 2] = new BlankPlugin() { Name = "" };
-                this.grid[4, 2] = new BlankPlugin() { Name = "" };
-                this.grid[5, 2] = new BlankPlugin() { Name = "" };
-                this.grid[6, 2] = new BlankPlugin() { Name = "" };
-                this.grid[7, 2] = new BlankPlugin() { Name = "" };
-
-                this.grid[0, 3] = new BlankPlugin() { Name = "" };
-                this.grid[1, 3] = new BlankPlugin() { Name = "" };
-                this.grid[2, 3] = new BlankPlugin() { Name = "" };
-                this.grid[3, 3] = new BlankPlugin() { Name = "" };
-                this.grid[4, 3] = new BlankPlugin() { Name = "" };
-                this.grid[5, 3] = new BlankPlugin() { Name = "" };
-                this.grid[6, 3] = new BlankPlugin() { Name = "" };
-                this.grid[7, 3] = new BlankPlugin() { Name = "" };
+                this.grid[0, 3] = new TwitterPlugin() { TwitterAccount = "MoneySupermkt", FailDelay = 2 };
+                this.grid[1, 3] = new TwitterPlugin() { TwitterAccount = "TravelSuperMkt"};
+                this.grid[2, 3] = new TwitterPlugin() { TwitterAccount = "MoneySavingExp"};
+                this.grid[3, 3] = new TwitterPlugin() { TwitterAccount = "OnTrees" };
 
                 Console.WriteLine("Demo Mode Active...");
             }
