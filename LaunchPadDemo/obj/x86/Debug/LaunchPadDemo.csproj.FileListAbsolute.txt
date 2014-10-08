@@ -4,3 +4,9 @@ c:\code\LaunchPadDemo\LaunchPadDemo\bin\Debug\Midi.dll
 c:\code\LaunchPadDemo\LaunchPadDemo\bin\Debug\Midi.xml
 c:\code\LaunchPadDemo\LaunchPadDemo\obj\x86\Debug\LaunchPadDemo.exe
 c:\code\LaunchPadDemo\LaunchPadDemo\obj\x86\Debug\LaunchPadDemo.pdb
+C:\code\launchpad-demo\LaunchPadDemo\bin\Debug\LaunchPadDemo.exe
+C:\code\launchpad-demo\LaunchPadDemo\bin\Debug\LaunchPadDemo.pdb
+C:\code\launchpad-demo\LaunchPadDemo\bin\Debug\Midi.xml
+C:\code\launchpad-demo\LaunchPadDemo\obj\x86\Debug\LaunchPadDemo.csprojResolveAssemblyReference.cache
+C:\code\launchpad-demo\LaunchPadDemo\obj\x86\Debug\LaunchPadDemo.exe
+C:\code\launchpad-demo\LaunchPadDemo\obj\x86\Debug\LaunchPadDemo.pdb

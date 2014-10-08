@@ -8,9 +8,12 @@ namespace LaunchPadDemo
 {
     class Program
     {
+        private static Launchpad launchPad;
+
         static void Main(string[] args)
         {
-            Launchpad launchPad = null;
+            AppDomain.CurrentDomain.ProcessExit += AppDomain_ProcessExit; 
+            launchPad = null;
             InputDevice i = null;
             OutputDevice o = null;
 
@@ -57,6 +60,14 @@ namespace LaunchPadDemo
                 launchPad.Close();
             }
         }
+
+        private static void AppDomain_ProcessExit(object sender, EventArgs e)
+        {
+            if (launchPad != null)
+            {
+                launchPad.Close();
+            }
+        } 
     }
 }
 

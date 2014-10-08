@@ -11,7 +11,7 @@ namespace LaunchPadDemo
 
         public override void Action()
         {
-            System.Diagnostics.Process.Start("chrome.exe");
+            System.Diagnostics.Process.Start("chrome.exe", "http://jenkins.msm.cakesolutions.net/");
         }
 
         public override void Poll()
