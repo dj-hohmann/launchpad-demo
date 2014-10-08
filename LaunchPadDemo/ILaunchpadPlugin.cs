@@ -14,9 +14,9 @@ namespace LaunchPadDemo
     public enum LaunchPadColour
     {
         BLANK = 0,
-        RED = 2,
-        GREEN = 100,
-        AMBER = 127
+        RED = 11,
+        GREEN = 60,
+        AMBER = 62
     }
 
     public enum LaunchPadStatus
