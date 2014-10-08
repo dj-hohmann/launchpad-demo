@@ -147,7 +147,7 @@ namespace LaunchPadDemo
             {
                 demo = true;
                 this.grid = new ILaunchpadPlugin[8, 8];
-                this.grid[2, 2] = new TestPlugin();
+                this.grid[2, 2] = new JenkinsPlugin() { Job = "aggregation-integration-builder", Build = "lastFailedBuild" };
                 this.grid[5, 2] = new BlankPlugin() { Name = "Fe"};
                 this.grid[3, 4] = new BlankPlugin() { Name = "Fi" };
                 this.grid[4, 4] = new BlankPlugin() { Name = "Fo" };
