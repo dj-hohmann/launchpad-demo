@@ -34,10 +34,10 @@ namespace LaunchPadDemo
             }
             if (i != null && o != null)
             {
-                launchPad = new Launchpad(i, o, new Midi.Clock(30));
+                launchPad = new Launchpad(i, o, new Midi.Clock(120));
                 Console.WriteLine("Device found and locked!!!");
                 DateTime time = DateTime.Now;
-                while (DateTime.Now < time.AddSeconds(3))
+                while (DateTime.Now < time.AddSeconds(1))
                 {
                 }
                 launchPad.Clear();
