@@ -12,6 +12,7 @@ namespace LaunchPadDemo
         public override void Action()
         {
             System.Diagnostics.Process.Start("chrome.exe", "https://twitter.com/MoneySupermkt");
+            this.status = LaunchPadStatus.OK; // Reset the status
         }
 
         public override void Poll()
